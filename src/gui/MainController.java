@@ -17,7 +17,7 @@ public class MainController {
 
     @FXML
     public void onMenuItemDepartmentAction() {
-        System.out.println("Department");
+        Utils.loadView(this, "/gui/DepartmentList.fxml");
     }
 
     @FXML
