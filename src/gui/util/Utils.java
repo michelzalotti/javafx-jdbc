@@ -1,6 +1,7 @@
 package gui.util;
 
 import java.io.IOException;
+import java.util.function.Consumer;
 
 import application.Program;
 import javafx.fxml.FXMLLoader;
@@ -11,7 +12,7 @@ import javafx.scene.layout.VBox;
 
 public class Utils {
 
-    public static void loadView(Object mainClass, String viewPath) {
+    public static synchronized <T> void loadView(Object mainClass, String viewPath, Consumer<T> action) {
         FXMLLoader loader = new FXMLLoader(mainClass.getClass().getResource(viewPath));
 
         try {
@@ -22,6 +23,9 @@ public class Utils {
             mainVBox.getChildren().clear();
             mainVBox.getChildren().add(mainMenu);
             mainVBox.getChildren().addAll(vBox.getChildren());
+
+            T controller = loader.getController();
+            action.accept(controller);
 
         } catch (IOException e) {
             Alerts.showAlert("Error", null, e.getMessage(), AlertType.ERROR);
