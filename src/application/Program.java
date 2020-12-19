@@ -10,6 +10,8 @@ import javafx.stage.Stage;
 
 public class Program extends Application {
 
+    private static Scene mainScene;
+
     public void start(Stage mainStage) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/Main.fxml"));
@@ -18,7 +20,7 @@ public class Program extends Application {
             sPane.setFitToWidth(true);
             sPane.setFitToHeight(true);
 
-            Scene mainScene = new Scene(sPane);
+            mainScene = new Scene(sPane);
             mainStage.setTitle("JavaFX Demo Application");
             mainStage.setScene(mainScene);
             mainStage.show();
@@ -29,5 +31,9 @@ public class Program extends Application {
 
     public static void main(String[] args) {
         launch(args);
+    }
+
+    public static Scene getMainScene() {
+        return mainScene;
     }
 }

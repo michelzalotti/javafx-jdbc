@@ -1,5 +1,6 @@
 package gui;
 
+import gui.util.Utils;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
 
@@ -26,7 +27,7 @@ public class MainController {
 
     @FXML
     public void onMenuItemAboutAction() {
-        System.out.println("About");
+        Utils.loadView(this, "/gui/About.fxml");
     }
 
 }
