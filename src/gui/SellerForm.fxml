@@ -40,19 +40,19 @@
             <Label text="Name" GridPane.rowIndex="2" />
             <TextField fx:id="txtId" editable="false" GridPane.columnIndex="2" />
             <TextField fx:id="txtName" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <TextField fx:id="txtEmail" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+            <DatePicker fx:id="dpBirthDate" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+            <TextField fx:id="txtBaseSalary" GridPane.columnIndex="2" GridPane.rowIndex="8" />
+            <ComboBox fx:id="cbDepartment" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="10" />
             <Label fx:id="lblIdError" textFill="RED" GridPane.columnIndex="4" />
             <Label fx:id="lblNameError" textFill="RED" GridPane.columnIndex="4" GridPane.rowIndex="2" />
             <Label text="Email" GridPane.rowIndex="4" />
             <Label text="Birth Date" GridPane.rowIndex="6" />
             <Label text="Base Salary" GridPane.rowIndex="8" />
             <Label text="Department" GridPane.rowIndex="10" />
-            <TextField fx:id="txtEmail" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-            <TextField fx:id="txtBaseSalary" GridPane.columnIndex="2" GridPane.rowIndex="8" />
-            <DatePicker fx:id="dpBirthDate" GridPane.columnIndex="2" GridPane.rowIndex="6" />
             <Label fx:id="lblEmailError" textFill="RED" GridPane.columnIndex="4" GridPane.rowIndex="4" />
             <Label fx:id="lblBirthDateError" textFill="RED" GridPane.columnIndex="4" GridPane.rowIndex="6" />
             <Label fx:id="lblBaseSalaryError" textFill="RED" GridPane.columnIndex="4" GridPane.rowIndex="8" />
-            <ComboBox fx:id="cbDepartment" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="10" />
          </children>
       </GridPane>
       <ToolBar layoutY="281.0" prefHeight="40.0" prefWidth="600.0">

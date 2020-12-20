@@ -3,6 +3,7 @@ package gui.util;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -129,6 +130,11 @@ public class Utils {
             e.printStackTrace();
         }
         return lDate;
+    }
+
+    public static Date convertLocalDateToDate(LocalDate date) {
+        Instant instant = Instant.from(date.atStartOfDay(ZoneId.systemDefault()));
+        return Date.from(instant);
     }
 
 }

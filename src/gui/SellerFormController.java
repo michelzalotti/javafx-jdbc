@@ -151,6 +151,13 @@ public class SellerFormController implements Initializable {
 
         seller.setId(Utils.tryParseToInt(txtId.getText()));
         seller.setName(txtName.getText());
+        seller.setEmail(txtEmail.getText());
+
+        if (dpBirthDate.getValue() != null)
+            seller.setBirthDate(Utils.convertLocalDateToDate(dpBirthDate.getValue()));
+
+        seller.setBaseSalary(Utils.tryParseToDouble(txtBaseSalary.getText()));
+        seller.setDepartment(cbDepartment.getValue());
 
         return seller;
     }
@@ -174,6 +181,15 @@ public class SellerFormController implements Initializable {
         if (txtName.getText() == null || txtName.getText().trim().equals(""))
             exception.addError("name", "Field is empty!");
 
+        if (txtEmail.getText() == null || txtEmail.getText().trim().equals(""))
+            exception.addError("email", "Field is empty!");
+
+        if (dpBirthDate.getValue() == null)
+            exception.addError("birthDate", "Field is empty!");
+
+        if (txtBaseSalary.getText() == null || txtBaseSalary.getText().trim().equals(""))
+            exception.addError("baseSalary", "Field is empty!");
+
         if (exception.getErrors().size() > 0)
             throw exception;
     }
@@ -182,7 +198,9 @@ public class SellerFormController implements Initializable {
         Set<String> fields = errors.keySet();
 
         lblNameError.setText(fields.contains("name") ? errors.get("name") : "");
-
+        lblEmailError.setText(fields.contains("email") ? errors.get("email") : "");
+        lblBirthDateError.setText(fields.contains("birthDate") ? errors.get("birthDate") : "");
+        lblBaseSalaryError.setText(fields.contains("baseSalary") ? errors.get("baseSalary") : "");
     }
 
     public void loadAssociatedObjects() {

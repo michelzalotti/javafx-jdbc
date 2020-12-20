@@ -29,7 +29,7 @@ public class SellerDaoJDBC implements SellerDao {
 
     @Override
     public void insert(Seller obj) {
-        sql = "INSERT INTO seller (name, email, birthdate, basesalary, department) VALUES (?, ?, ?, ?, ?)";
+        sql = "INSERT INTO seller (name, email, birthdate, basesalary, departmentid) VALUES (?, ?, ?, ?, ?)";
 
         try {
             pStat = conn.prepareStatement(sql);
@@ -52,7 +52,7 @@ public class SellerDaoJDBC implements SellerDao {
 
     @Override
     public void update(Seller obj) {
-        sql = "UPDATE seller SET name = ?, email = ?, birthdate = ?, basesalary = ?, department = ? WHERE id = ?";
+        sql = "UPDATE seller SET name = ?, email = ?, birthdate = ?, basesalary = ?, departmentid = ? WHERE id = ?";
 
         try {
             pStat = conn.prepareStatement(sql);
