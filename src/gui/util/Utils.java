@@ -4,13 +4,19 @@ import java.io.IOException;
 import java.util.function.Consumer;
 
 import application.Program;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 public class Utils {
+
+    public static Stage currentStage(ActionEvent event) {
+        return (Stage) ((Node) event.getSource()).getScene().getWindow();
+    }
 
     public static synchronized <T> void loadView(Object mainClass, String viewPath, Consumer<T> action) {
         FXMLLoader loader = new FXMLLoader(mainClass.getClass().getResource(viewPath));
