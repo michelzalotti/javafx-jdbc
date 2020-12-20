@@ -106,27 +106,27 @@ public class SellerListController implements Initializable, DataChangeListener {
     }
 
     private void createDialogForm(ActionEvent event, String viewPath, Seller seller) {
-        // FXMLLoader loader = new FXMLLoader(getClass().getResource(viewPath));
-        // try {
-        // Pane pane = loader.load();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(viewPath));
+        try {
+            Pane pane = loader.load();
 
-        // SellerFormController controller = loader.getController();
-        // controller.setEntity(seller);
-        // controller.setService(new SellerService());
-        // controller.subscribeListener(this);
-        // controller.updateFormData();
+            SellerFormController controller = loader.getController();
+            controller.setEntity(seller);
+            controller.setService(new SellerService());
+            controller.subscribeListener(this);
+            controller.updateFormData();
 
-        // Stage stage = new Stage();
-        // stage.setTitle("Seller");
-        // stage.setScene(new Scene(pane));
-        // stage.setResizable(false);
-        // stage.initOwner(Utils.currentStage(event));
-        // stage.initModality(Modality.WINDOW_MODAL);
-        // stage.showAndWait();
+            Stage stage = new Stage();
+            stage.setTitle("Seller");
+            stage.setScene(new Scene(pane));
+            stage.setResizable(false);
+            stage.initOwner(Utils.currentStage(event));
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.showAndWait();
 
-        // } catch (IOException e) {
-        // Alerts.showAlert("Error", null, e.getMessage(), AlertType.ERROR);
-        // }
+        } catch (IOException e) {
+            Alerts.showAlert("Error", null, e.getMessage(), AlertType.ERROR);
+        }
     }
 
     @Override
