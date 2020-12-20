@@ -9,6 +9,7 @@ import application.Program;
 import gui.listeners.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Utils;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -17,6 +18,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Alert.AlertType;
@@ -40,6 +42,9 @@ public class DepartmentListController implements Initializable, DataChangeListen
 
     @FXML
     private TableColumn<Department, String> tableColumnName;
+
+    @FXML
+    private TableColumn<Department, Department> tableColumnEdit;
 
     private DepartmentService service;
     private ObservableList<Department> obsList;
@@ -74,6 +79,7 @@ public class DepartmentListController implements Initializable, DataChangeListen
         List<Department> departments = service.findAll();
         obsList = FXCollections.observableArrayList(departments);
         tableViewDepartment.setItems(obsList);
+        initEditButtons();
     }
 
     private void createDialogForm(ActionEvent event, String viewPath, Department department) {
@@ -103,6 +109,29 @@ public class DepartmentListController implements Initializable, DataChangeListen
     @Override
     public void onChangedData() {
         updateTableViewData();
+    }
+
+    private void initEditButtons() {
+        tableColumnEdit.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+        tableColumnEdit.setCellFactory(param -> new TableCell<Department, Department>() {
+
+            private final Button btnEdit = new Button("Edit");
+
+            @Override
+            protected void updateItem(Department department, boolean empty) {
+                if (empty) {
+                    setText(null);
+                    return;
+                }
+                setGraphic(btnEdit);
+                btnEdit.setOnAction(event -> editDepartment(department, event));
+            }
+
+        });
+    }
+
+    private void editDepartment(Department department, ActionEvent event) {
+        createDialogForm(event, "/gui/DepartmentForm.fxml", department);
     }
 
 }
