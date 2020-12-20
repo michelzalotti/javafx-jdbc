@@ -18,6 +18,14 @@ public class Utils {
         return (Stage) ((Node) event.getSource()).getScene().getWindow();
     }
 
+    public static Integer tryParseToInt(String value) {
+        try {
+            return Integer.parseInt(value);
+        } catch (NumberFormatException e) {
+            return null;
+        }
+    }
+
     public static synchronized <T> void loadView(Object mainClass, String viewPath, Consumer<T> action) {
         FXMLLoader loader = new FXMLLoader(mainClass.getClass().getResource(viewPath));
 
