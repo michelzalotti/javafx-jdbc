@@ -1,6 +1,7 @@
 package application;
 
 import java.io.IOException;
+import java.util.Locale;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -30,6 +31,7 @@ public class Program extends Application {
     }
 
     public static void main(String[] args) {
+        Locale.setDefault(Locale.US);
         launch(args);
     }
 

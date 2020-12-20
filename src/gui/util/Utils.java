@@ -1,6 +1,8 @@
 package gui.util;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.function.Consumer;
 
 import application.Program;
@@ -8,6 +10,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -44,6 +48,34 @@ public class Utils {
         } catch (IOException e) {
             Alerts.showAlert("Error", null, e.getMessage(), AlertType.ERROR);
         }
+    }
+
+    public static <T> void formatDateTableColumn(TableColumn<T, Date> column, String dateFormat) {
+        column.setCellFactory(param -> new TableCell<T, Date>() {
+
+            SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
+
+            @Override
+            protected void updateItem(Date date, boolean empty) {
+                if (empty)
+                    setText(null);
+                else
+                    setText(sdf.format(date));
+            }
+        });
+    }
+
+    public static <T> void formatDoubleTableColumn(TableColumn<T, Double> column) {
+        column.setCellFactory(param -> new TableCell<T, Double>() {
+
+            @Override
+            protected void updateItem(Double value, boolean empty) {
+                if (empty)
+                    setText(null);
+                else
+                    setText(String.format("%.2f",value));
+            }
+        });
     }
 
 }

@@ -2,6 +2,7 @@ package gui;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -47,6 +48,15 @@ public class SellerListController implements Initializable, DataChangeListener {
     private TableColumn<Seller, String> tableColumnName;
 
     @FXML
+    private TableColumn<Seller, String> tableColumnEmail;
+
+    @FXML
+    private TableColumn<Seller, Date> tableColumnBirthDate;
+
+    @FXML
+    private TableColumn<Seller, Double> tableColumnBaseSalary;
+
+    @FXML
     private TableColumn<Seller, Seller> tableColumnEdit;
 
     @FXML
@@ -69,6 +79,12 @@ public class SellerListController implements Initializable, DataChangeListener {
     private void initializeNodes() {
         tableColumnId.setCellValueFactory(new PropertyValueFactory<Seller, Integer>("id"));
         tableColumnName.setCellValueFactory(new PropertyValueFactory<Seller, String>("name"));
+        tableColumnEmail.setCellValueFactory(new PropertyValueFactory<Seller, String>("email"));
+        tableColumnBirthDate.setCellValueFactory(new PropertyValueFactory<Seller, Date>("birthDate"));
+        tableColumnBaseSalary.setCellValueFactory(new PropertyValueFactory<Seller, Double>("baseSalary"));
+
+        Utils.formatDateTableColumn(tableColumnBirthDate, "dd/MM/yyyy");
+        Utils.formatDoubleTableColumn(tableColumnBaseSalary);
 
         Stage stage = (Stage) Program.getMainScene().getWindow();
         tableViewSeller.prefHeightProperty().bind(stage.heightProperty());
@@ -92,24 +108,24 @@ public class SellerListController implements Initializable, DataChangeListener {
     private void createDialogForm(ActionEvent event, String viewPath, Seller seller) {
         // FXMLLoader loader = new FXMLLoader(getClass().getResource(viewPath));
         // try {
-        //     Pane pane = loader.load();
+        // Pane pane = loader.load();
 
-        //     SellerFormController controller = loader.getController();
-        //     controller.setEntity(seller);
-        //     controller.setService(new SellerService());
-        //     controller.subscribeListener(this);
-        //     controller.updateFormData();
+        // SellerFormController controller = loader.getController();
+        // controller.setEntity(seller);
+        // controller.setService(new SellerService());
+        // controller.subscribeListener(this);
+        // controller.updateFormData();
 
-        //     Stage stage = new Stage();
-        //     stage.setTitle("Seller");
-        //     stage.setScene(new Scene(pane));
-        //     stage.setResizable(false);
-        //     stage.initOwner(Utils.currentStage(event));
-        //     stage.initModality(Modality.WINDOW_MODAL);
-        //     stage.showAndWait();
+        // Stage stage = new Stage();
+        // stage.setTitle("Seller");
+        // stage.setScene(new Scene(pane));
+        // stage.setResizable(false);
+        // stage.initOwner(Utils.currentStage(event));
+        // stage.initModality(Modality.WINDOW_MODAL);
+        // stage.showAndWait();
 
         // } catch (IOException e) {
-        //     Alerts.showAlert("Error", null, e.getMessage(), AlertType.ERROR);
+        // Alerts.showAlert("Error", null, e.getMessage(), AlertType.ERROR);
         // }
     }
 
