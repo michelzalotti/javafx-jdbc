@@ -10,8 +10,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="214.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="214.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.DepartmentFormController">
    <children>
       <GridPane layoutX="200.0" layoutY="155.0" prefHeight="150.0" prefWidth="551.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
         <columnConstraints>
@@ -31,16 +30,16 @@
          <children>
             <Label text="Id" />
             <Label text="Name" GridPane.rowIndex="2" />
-            <TextField editable="false" GridPane.columnIndex="2" />
-            <TextField GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <Label textFill="RED" GridPane.columnIndex="4" />
-            <Label textFill="RED" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+            <TextField fx:id="txtId" editable="false" GridPane.columnIndex="2" />
+            <TextField fx:id="txtName" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <Label fx:id="lblIdError" textFill="RED" GridPane.columnIndex="4" />
+            <Label fx:id="lblNameError" textFill="RED" GridPane.columnIndex="4" GridPane.rowIndex="2" />
          </children>
       </GridPane>
       <ToolBar layoutX="-1.0" layoutY="170.0" prefHeight="40.0" prefWidth="600.0">
         <items>
-            <Button minWidth="80.0" mnemonicParsing="false" text="Save" />
-          <Button minWidth="60.0" mnemonicParsing="false" text="Cancel" />
+            <Button fx:id="btnSave" minWidth="80.0" mnemonicParsing="false" onAction="#onBtnSaveAction" text="Save" />
+          <Button fx:id="btnCancel" minWidth="60.0" mnemonicParsing="false" onAction="#onBtnCancelAction" text="Cancel" />
         </items>
          <padding>
             <Insets bottom="10.0" left="10.0" top="10.0" />
