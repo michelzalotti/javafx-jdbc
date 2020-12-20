@@ -4,6 +4,7 @@ import gui.util.Utils;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
 import model.services.DepartmentService;
+import model.services.SellerService;
 
 public class MainController {
 
@@ -26,7 +27,10 @@ public class MainController {
 
     @FXML
     public void onMenuItemSellerAction() {
-        System.out.println("Seller");
+        Utils.loadView(this, "/gui/SellerList.fxml", (SellerListController controller) -> {
+            controller.setService(new SellerService());
+            controller.updateTableViewData();
+        });
     }
 
     @FXML
