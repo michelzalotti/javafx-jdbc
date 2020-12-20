@@ -1,14 +1,20 @@
 package gui.util;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.function.Consumer;
 
 import application.Program;
+import javafx.util.StringConverter;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -25,6 +31,14 @@ public class Utils {
     public static Integer tryParseToInt(String value) {
         try {
             return Integer.parseInt(value);
+        } catch (NumberFormatException e) {
+            return null;
+        }
+    }
+
+    public static Double tryParseToDouble(String value) {
+        try {
+            return Double.parseDouble(value);
         } catch (NumberFormatException e) {
             return null;
         }
@@ -73,9 +87,48 @@ public class Utils {
                 if (empty)
                     setText(null);
                 else
-                    setText(String.format("%.2f",value));
+                    setText(String.format("%.2f", value));
             }
         });
+    }
+
+    public static void formatDatePicker(DatePicker datePicker, String format) {
+        datePicker.setConverter(new StringConverter<LocalDate>() {
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(format);
+            {
+                datePicker.setPromptText(format.toLowerCase());
+            }
+
+            @Override
+            public String toString(LocalDate date) {
+                if (date != null) {
+                    return dateFormatter.format(date);
+                } else {
+                    return "";
+                }
+            }
+
+            @Override
+            public LocalDate fromString(String string) {
+                if (string != null && !string.isEmpty()) {
+                    return LocalDate.parse(string, dateFormatter);
+                } else {
+                    return null;
+                }
+            }
+        });
+    }
+
+    public static LocalDate convertDateToLocalDate(Date date, String dateFormat) {
+        SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
+        LocalDate lDate = null;
+        try {
+            Date nDate = sdf.parse(date.toString());
+            lDate = LocalDate.ofInstant(nDate.toInstant(), ZoneId.systemDefault());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return lDate;
     }
 
 }
