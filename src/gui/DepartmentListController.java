@@ -3,9 +3,11 @@ package gui;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import application.Program;
+import db.DbIntegrityException;
 import gui.listeners.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Utils;
@@ -18,6 +20,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -45,6 +48,9 @@ public class DepartmentListController implements Initializable, DataChangeListen
 
     @FXML
     private TableColumn<Department, Department> tableColumnEdit;
+
+    @FXML
+    private TableColumn<Department, Department> tableColumnDelete;
 
     private DepartmentService service;
     private ObservableList<Department> obsList;
@@ -80,6 +86,7 @@ public class DepartmentListController implements Initializable, DataChangeListen
         obsList = FXCollections.observableArrayList(departments);
         tableViewDepartment.setItems(obsList);
         initEditButtons();
+        initDeleteButtons();
     }
 
     private void createDialogForm(ActionEvent event, String viewPath, Department department) {
@@ -132,6 +139,42 @@ public class DepartmentListController implements Initializable, DataChangeListen
 
     private void editDepartment(Department department, ActionEvent event) {
         createDialogForm(event, "/gui/DepartmentForm.fxml", department);
+    }
+
+    private void initDeleteButtons() {
+        tableColumnDelete.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+        tableColumnDelete.setCellFactory(param -> new TableCell<Department, Department>() {
+
+            private final Button btnDelete = new Button("Delete");
+
+            @Override
+            protected void updateItem(Department department, boolean empty) {
+                if (empty) {
+                    setText(null);
+                    return;
+                }
+
+                setGraphic(btnDelete);
+                btnDelete.setOnAction(event -> deleteDepartment(department));
+            }
+
+        });
+    }
+
+    private void deleteDepartment(Department department) {
+        Optional<ButtonType> result = Alerts.showConfirmation("Delete?", "Confirm delete?");
+
+        if (result.get() == ButtonType.OK) {
+            if (service == null)
+                throw new IllegalStateException("Error! Department Service is not set.");
+
+            try {
+                service.remove(department);
+                updateTableViewData();
+            } catch (DbIntegrityException e) {
+                Alerts.showAlert("Error!", null, e.getMessage(), AlertType.ERROR);
+            }
+        }
     }
 
 }

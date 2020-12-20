@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import db.DbException;
+import db.DbIntegrityException;
 import model.dao.DepartmentDao;
 import model.entities.Department;
 import model.util.InstantiateEntity;
@@ -75,7 +76,7 @@ public class DepartmentDaoJDBC implements DepartmentDao {
                 throw new DbException("Error! " + affectedRows + " affected rows.");
 
         } catch (SQLException e) {
-            throw new DbException(e.getMessage());
+            throw new DbIntegrityException(e.getMessage());
         }
     }
 
